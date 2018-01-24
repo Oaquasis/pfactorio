@@ -17,16 +17,28 @@
                         <!--Category name-->
                         <li class="list-header">Navigation</li>
 
+                        <hr class="nav-divider">
+
+
                         <!--Menu list item-->
                         <li {!! $route == "index" ? "class=\"active\"" : '' !!}>
                             <a href="{{ route('index') }}">Home</a>
                         </li>
-                        <li {!! $route == "log" ? "class=\"active\"" : '' !!}>
-                            <a href="{{ route('log') }}">Logviewer</a>
-                        </li>
+
+                        @if(!Auth::check())
+                            <li>
+                                <a href="{{ route('login') }}">Login</a>
+                            </li>
+                            <hr class="nav-divider">
+                        @endif
 
                         @if(Auth::check())
+                            <hr class="nav-divider">
                             <!--Menu list item-->
+
+                            <li {!! $route == "log" ? "class=\"active\"" : '' !!}>
+                                <a href="{{ route('log') }}">Logviewer</a>
+                            </li>
                             <li>
                                 <a href="#">
                                     <span class="menu-title">Admin</span>
@@ -40,7 +52,9 @@
                             </li>
                             <!--Menu list item-->
                             <li>
-                                <a href="{{ route('logout') }}">Logout</a>
+                                <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
                             </li>
                         @endif
                     </ul>
