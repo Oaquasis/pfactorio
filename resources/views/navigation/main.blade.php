@@ -24,21 +24,25 @@
                         <li {!! $route == "log" ? "class=\"active\"" : '' !!}>
                             <a href="{{ route('log') }}">Logviewer</a>
                         </li>
-                        <!--Menu list item-->
-                        <!--<li>
-                            <a href="#">
-                                <i class="pli-home"></i>
-                                <span class="menu-title">Dashboard</span>
-                                <i class="arrow"></i>
-                            </a>
 
-                            <ul class="collapse">
-                                <li class="active-link"><a href="">Dashboard 1</a></li>
-                                <li><a href="dashboard-2.html">Dashboard 2</a></li>
-                                <li><a href="dashboard-3.html">Dashboard 3</a></li>
+                        @if(Auth::check())
+                            <!--Menu list item-->
+                            <li>
+                                <a href="#">
+                                    <span class="menu-title">Admin</span>
+                                    <i class="arrow"></i>
+                                </a>
 
-                            </ul>
-                        </li>-->
+                                <ul class="collapse">
+                                    <li><a href="">Servers</a></li>
+
+                                </ul>
+                            </li>
+                            <!--Menu list item-->
+                            <li>
+                                <a href="{{ route('logout') }}">Logout</a>
+                            </li>
+                        @endif
                     </ul>
                 </div>
             </div>

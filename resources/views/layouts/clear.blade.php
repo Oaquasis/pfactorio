@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>Test site</title>
+    <title>PFactorio - Login</title>
     <!--Open Sans Font [ OPTIONAL ]-->
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
 
@@ -17,9 +17,6 @@
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/fontawesome.css" rel="stylesheet">
 
-    <!--Nifty Premium Icons [OPTIONAL]
-    <link href="css/premium-line-icons.min.css" rel="stylesheet">-->
-
     <!--Pace - Page Load Progress Par [OPTIONAL]-->
     <link href="/css/plugins/pace.min.css" rel="stylesheet">
     <script src="/js/pace.min.js"></script>
@@ -27,47 +24,12 @@
     @yield('head')
 </head>
 
-<body id="app">
-    <div id="container" class="effect boxed-layout aside-float aside-bright mainnav-lg">
+<body>
+    <div id="container" class="cls-container bg-primary">
 
-    @yield('navigation.top')
+        <div id="bg-overlay"></div>
 
-      <div class="boxed">
-
-        <!--CONTENT CONTAINER-->
-        <!--===================================================-->
-        <div id="content-container">
-          @yield('header')
-
-          <!--Page content-->
-          <!--===================================================-->
-          <div id="page-content">
-            @yield('content')
-          </div>
-          <!--===================================================-->
-          <!--End page content-->
-
-        </div>
-        <!--===================================================-->
-        <!--END CONTENT CONTAINER-->
-        @yield('navigation.main')
-      </div>
-
-      <!-- FOOTER -->
-      <!--===================================================-->
-      @yield('footer')
-      <!--===================================================-->
-      <!-- END FOOTER -->
-
-
-      <!-- SCROLL PAGE BUTTON -->
-      <!--===================================================-->
-      <button class="scroll-top btn">
-        <i class="pci-chevron chevron-up"></i>
-      </button>
-      <!--===================================================-->
-
-
+        @yield('form')
 
     </div>
     <!--===================================================-->
