@@ -19,6 +19,7 @@ class AddServersTable extends Migration
             $table->string('dns_name');
             $table->string('ip_address');
             $table->integer('status');
+            $table->boolean('is_primary');
             $table->timestamps();
         });
     }

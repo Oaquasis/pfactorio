@@ -39,7 +39,7 @@ class CreateBaseTables extends Migration
      */
     public function down()
     {
-        Schema::table('users', function(Blueprint $table) {
+        Schema::table('events', function(Blueprint $table) {
             $table->dropForeign(['eventtype_id']);
         });
 

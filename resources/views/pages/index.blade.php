@@ -21,11 +21,9 @@
 @stop
 
 @section('content')
-    <div id="page-content">
-        @include('partials.info')
-        <hr class="new-section-sm">
-        @include('partials.timeline')
-    </div>
+    @include('partials.info')
+    <hr class="new-section-sm">
+    @include('partials.timeline')
 @stop
 
 @section('footer')

@@ -37,6 +37,8 @@ Route::prefix('auth')->group(function(){
     $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 });
 
-
+Route::middleware('auth')->prefix('admin')->group(function(){
+     $this->resource('server', 'ServerController');
+});
 
 Route::get('/home', 'HomeController@index')->name('home');

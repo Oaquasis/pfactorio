@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-class ServerTableSeeder extends Seeder
+class ServersTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,11 +11,12 @@ class ServerTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('users')->insert([
+        DB::table('servers')->insert([
             'name' => 'factorio',
             'dns_name' => 'factorio.brons.pro',
             'ip_address' => '84.26.133.4',
             'status' => 0,
+            'is_primary' => 1
         ]);
     }
 }
