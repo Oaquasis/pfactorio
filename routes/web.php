@@ -16,9 +16,6 @@ Route::get('/', function () {
     return view('pages.index');
 })->name('index');
 
-Route::get('/log', function (){
-    return view('pages.logviewer');
-})->name('log');
 
 Route::prefix('auth')->group(function(){
     // Authentication Routes...
@@ -37,8 +34,23 @@ Route::prefix('auth')->group(function(){
     $this->post('password/reset', 'Auth\ResetPasswordController@reset');
 });
 
+Route::middleware('auth')->group(function(){
+
+    Route::get('/log', function (){
+        return view('pages.logviewer');
+    })->name('log');
+
+    Route::get('/profile', function (){
+        return view('pages.profile');
+    })->name('profile');
+});
+
 Route::middleware('auth')->prefix('admin')->group(function(){
      $this->resource('server', 'ServerController');
+
+    Route::get('/oauth', function (){
+        return view('admin.oauth');
+    })->name('oauth');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

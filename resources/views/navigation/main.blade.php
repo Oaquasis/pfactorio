@@ -79,6 +79,15 @@
                                             <span class="menu-title">Servers</span>
                                         </a>
                                     </li>
+                                    <li {!! $route == 'oauth' ? 'class="active-link"' : '' !!}>
+                                        <a href="{{ route('oauth') }}">
+                                            <span class="fa-stack ">
+                                                <i class="fal fa-rectangle-wide fa-stack-1x"></i>
+                                                <i class="fal fa-ellipsis-h fa-stack-1x"></i>
+                                            </span>
+                                            <span class="menu-title">Oauth Tokens</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                         @endif

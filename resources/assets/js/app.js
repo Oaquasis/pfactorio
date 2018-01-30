@@ -10,8 +10,8 @@ try {
 } catch (e) {}
 
 window.Vue = require('vue');
-const fontawesome = require('@fortawesome/fontawesome');
-const faPowerOff = require('@fortawesome/fontawesome-pro-light/faPowerOff');
+//const fontawesome = ;
+//const faPowerOff = require('@fortawesome/fontawesome-pro-light/faPowerOff');
 
 //const fontawesome = require('@fortawesome/fontawesome');
 //const lightIcons = require('@fortawesome/fontawesome-pro-light')
@@ -22,12 +22,15 @@ const faPowerOff = require('@fortawesome/fontawesome-pro-light/faPowerOff');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-fontawesome.library.add(faPowerOff);
+//fontawesome.library.add(faPowerOff);
 
-Vue.component('font-awesome-icon', FontAwesomeIcon); // Use the icon component anywhere in the app
+//Vue.component('font-awesome-icon', require('@fortawesome/fontawesome')); // Use the icon component anywhere in the app
+Vue.component('passport-clients', require('./components/passport/Clients.vue'));
+Vue.component('passport-authorized-clients',require('./components/passport/AuthorizedClients.vue'));
+Vue.component('passport-personal-access-tokens',require('./components/passport/PersonalAccessTokens.vue'));
 
 new Vue({
-    el: '#app',
+    el: 'body',
     template: '<div><my-component></my-component></div>',
-    render: h => h(App)
+    //render: h => h(App)
 });
