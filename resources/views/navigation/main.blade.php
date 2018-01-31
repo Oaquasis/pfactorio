@@ -79,6 +79,18 @@
                                             <span class="menu-title">Servers</span>
                                         </a>
                                     </li>
+                                    <li {!! $route == 'modpack.index' ? 'class="active-link"' : '' !!}>
+                                        <a href="{{ route('modpack.index') }}">
+                                            <i class="fal fa-file-archive"></i>
+                                            <span class="menu-title">Modpacks</span>
+                                        </a>
+                                    </li>
+                                    <li {!! $route == 'mod.index' ? 'class="active-link"' : '' !!}>
+                                        <a href="{{ route('mod.index') }}">
+                                            <i class="fal fa-file"></i>
+                                            <span class="menu-title">Mods</span>
+                                        </a>
+                                    </li>
                                     <li {!! $route == 'oauth' ? 'class="active-link"' : '' !!}>
                                         <a href="{{ route('oauth') }}">
                                             <span class="fa-stack ">

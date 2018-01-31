@@ -36,4 +36,9 @@ class Server extends Model
                 break;
         }
     }
+
+    public function modpack()
+    {
+        return $this->hasOne(Modpack::class);
+    }
 }

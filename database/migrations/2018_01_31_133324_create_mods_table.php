@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddServersTable extends Migration
+class CreateModsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,11 @@ class AddServersTable extends Migration
      */
     public function up()
     {
-        Schema::create('servers', function (Blueprint $table) {
+        Schema::create('mods', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('dns_name');
-            $table->string('ip_address');
-            $table->integer('status');
-            $table->boolean('is_primary');
+            $table->string('version');
+            $table->boolean('is_installed');
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ class AddServersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('servers');
+        Schema::dropIfExists('mods');
     }
 }

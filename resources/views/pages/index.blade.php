@@ -22,5 +22,5 @@
 @stop
 
 @section('footer')
-
+    @yield('footer')
 @stop

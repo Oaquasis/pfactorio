@@ -1,15 +1,26 @@
 @extends('pages.index')
 
+@section('header')
+    <div id="page-head">
+        <div id="page-title">
+            <h1 class="page-header text-overflow">Servers</h1>
+        </div>
+
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fal fa-home"></i></a></li>
+            <li><a href="#">Admin</a></li>
+            <li class="active">Servers</li>
+        </ol>
+    </div>
+@endsection
+
 @section('content')
 <div class="panel">
-    <div class="panel-heading">
-        <h3 class="panel-title">Servers</h3>
-    </div>
     <div class="panel-body">
         <div class="pad-btm form-inline">
             <div class="row">
-                <div class="col-sm-6 table-toolbar-left">
-                    <button id="demo-btn-addrow" class="btn btn-purple"><i class="demo-pli-add"></i> Add</button>
+                <div class="col-sm-12 table-toolbar-right">
+                    <a class="btn btn-purple" href="{{ route('server.create') }}"><i class="fal fa-plus"></i> Add</a>
                 </div>
             </div>
         </div>
@@ -20,17 +31,18 @@
                     <th>Name</th>
                     <th>DNS Name</th>
                     <th>IP Address</th>
+                    <th>Port</th>
                     <th class="text-center">Status</th>
-                    <th class="text-center"></th>
                 </tr>
                 </thead>
                 <tbody>
                 @if(isset($servers))
                     @foreach($servers as $server)
                         <tr>
-                            <td>{{ $server->name }}</td>
+                            <td><a class="btn-link" href="{{ route('server.edit', $server) }}">{{ $server->name }}</a></td>
                             <td>{{ $server->dns_name }}</td>
                             <td>{{ $server->ip_address }}</td>
+                            <td>{{ $server->port }}</td>
                             <td class="text-center">
                                 @if($server->status == 0)
                                     <div class="label label-table label-danger">Off</div>
@@ -38,11 +50,6 @@
                                     <div class="label label-table label-success">On</div>
                                 @else
                                     <div class="label label-table label-warning">Error</div>
-                                @endif
-                            </td>
-                            <td class="text-center">
-                                @if($server->is_primary == 1)
-                                    <div class="label label-table label-success">Primary</div>
                                 @endif
                             </td>
                         </tr>

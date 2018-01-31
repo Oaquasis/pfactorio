@@ -17,6 +17,7 @@ mix.copy('node_modules/pace-progress/pace.min.js', 'public/js/pace.min.js')
     .js('resources/assets/js/jquery.js', 'public/js')
     .js('resources/assets/js/popper.js', 'public/js')
     .js('resources/assets/js/bootstrap.js', 'public/js')
+    .js('resources/assets/js/app.js', 'public/js')
     .less('resources/assets/less/bootstrap.less', 'public/css')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .sass('resources/assets/sass/fontawesome/fontawesome.scss', 'public/css');

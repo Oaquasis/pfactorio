@@ -12,11 +12,19 @@ class ServersTableSeeder extends Seeder
     public function run()
     {
         DB::table('servers')->insert([
-            'name' => 'factorio',
+            'name' => 'Factorio Basic',
             'dns_name' => 'factorio.brons.pro',
             'ip_address' => '84.26.133.4',
-            'status' => 0,
-            'is_primary' => 1
+            'port' => 34197,
+            'status' => 0
+        ]);
+
+        DB::table('servers')->insert([
+            'name' => 'Factorio Monster',
+            'dns_name' => 'factorio.brons.pro',
+            'ip_address' => '84.26.133.4',
+            'port' => 33445,
+            'status' => 0
         ]);
     }
 }

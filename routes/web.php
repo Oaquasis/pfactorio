@@ -46,7 +46,11 @@ Route::middleware('auth')->group(function(){
 });
 
 Route::middleware('auth')->prefix('admin')->group(function(){
-     $this->resource('server', 'ServerController');
+    $this->resource('server', 'ServerController');
+    Route::get('/server/{server}/primary', 'ServerController@makePrimary')->name('server.primary');
+
+    $this->resource('mod', 'ModController');
+    $this->resource('modpack', 'ModpackController');
 
     Route::get('/oauth', function (){
         return view('admin.oauth');

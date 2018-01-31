@@ -2,10 +2,10 @@
 
 namespace pfactorio\Http\Controllers;
 
+use pfactorio\Modpack;
 use Illuminate\Http\Request;
-use pfactorio\Server;
 
-class ServerController extends Controller
+class ModpackController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ServerController extends Controller
      */
     public function index()
     {
-        $servers = Server::all();
+        $modpack = Modpack::all();
 
-        return view('admin.server.index', compact('servers'));
+        return view('admin.modpack.index', compact('modpack'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ServerController extends Controller
      */
     public function create()
     {
-        return view('admin.server.form');
+        return view('admin.modpack.form');
     }
 
     /**
@@ -37,9 +37,8 @@ class ServerController extends Controller
      */
     public function store(Request $request)
     {
-        $server = new Server($request->all());
-
-        $server->save();
+        $modpack = new Modpack($request->all());
+        $modpack->save();
 
         return redirect()->back();
     }
@@ -47,64 +46,50 @@ class ServerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \pfactorio\Modpack  $Modpack
      * @return \Illuminate\Http\Response
      */
-    public function show(Server $server)
+    public function show(Modpack $modpack)
     {
-        return view('admin.server.form', compact('server'));
+        return view('admin.modpack.form', compact('modpack'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \pfactorio\Modpack  $Modpack
      * @return \Illuminate\Http\Response
      */
-    public function edit(Server $server)
+    public function edit(Modpack $modpack)
     {
-        return view('admin.server.form', compact('server'));
+        return view('admin.modpack.form', compact('modpack'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \pfactorio\Modpack  $Modpack
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Server $server)
+    public function update(Request $request, Modpack $modpack)
     {
-        $server->update($request->all());
+        $modpack->update($request->all());
 
-        $server->save();
+        $modpack->save();
 
         return redirect()->back();
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \pfactorio\Modpack  $Modpack
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Server $server)
+    public function destroy(Modpack $modpack)
     {
-        $server->delete();
-
-        return redirect()->back();
-    }
-
-    public function switchStatus(Server $server, $status=null){
-
-        if($status == null) {
-            $server->status = $server->status== 1 ? 0 : 1;
-        }else{
-            $server->status = $status;
-        }
-
-        $server->save();
-
-        return true;
+        $modpack->delete();
     }
 }

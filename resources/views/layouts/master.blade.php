@@ -27,7 +27,7 @@
     @yield('head')
 </head>
 
-<body id="app">
+<body>
     <div id="container" class="effect boxed-layout aside-float aside-bright mainnav-lg">
 
     @yield('navigation.top')
@@ -55,7 +55,7 @@
 
       <!-- FOOTER -->
       <!--===================================================-->
-      @yield('footer')
+      @yield('content-footer')
       <!--===================================================-->
       <!-- END FOOTER -->
 
@@ -92,6 +92,9 @@
     <!--NiftyJS [ RECOMMENDED ]-->
     <script src="/js/nifty.min.js"></script>
 
-    <!--=================================================-->
+    <!--Application JS [ RECOMMENDED ]-->
+    <script src="/js/app.js"></script>
+
+    @yield('footer')
     </body>
 </html>

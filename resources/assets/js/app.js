@@ -4,12 +4,14 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-
-try {
-    require('bootstrap');
-} catch (e) {}
+//
+// try {
+//     require('bootstrap');
+// } catch (e) {}
 
 window.Vue = require('vue');
+const VeeValidate = require('vee-validate');
+Vue.use(VeeValidate);
 //const fontawesome = ;
 //const faPowerOff = require('@fortawesome/fontawesome-pro-light/faPowerOff');
 
@@ -29,8 +31,3 @@ Vue.component('passport-clients', require('./components/passport/Clients.vue'));
 Vue.component('passport-authorized-clients',require('./components/passport/AuthorizedClients.vue'));
 Vue.component('passport-personal-access-tokens',require('./components/passport/PersonalAccessTokens.vue'));
 
-new Vue({
-    el: 'body',
-    template: '<div><my-component></my-component></div>',
-    //render: h => h(App)
-});

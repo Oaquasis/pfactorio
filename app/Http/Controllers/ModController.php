@@ -2,10 +2,10 @@
 
 namespace pfactorio\Http\Controllers;
 
+use pfactorio\Mod;
 use Illuminate\Http\Request;
-use pfactorio\Server;
 
-class ServerController extends Controller
+class ModController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,9 @@ class ServerController extends Controller
      */
     public function index()
     {
-        $servers = Server::all();
+        $mods = Mod::all();
 
-        return view('admin.server.index', compact('servers'));
+        return view('admin.mod.index', compact('mods'));
     }
 
     /**
@@ -26,7 +26,7 @@ class ServerController extends Controller
      */
     public function create()
     {
-        return view('admin.server.form');
+        return view('admin.mod.form');
     }
 
     /**
@@ -37,9 +37,8 @@ class ServerController extends Controller
      */
     public function store(Request $request)
     {
-        $server = new Server($request->all());
-
-        $server->save();
+        $mod = new Mod($request->all());
+        $mod->save();
 
         return redirect()->back();
     }
@@ -47,64 +46,50 @@ class ServerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \pfactorio\Mod  $mod
      * @return \Illuminate\Http\Response
      */
-    public function show(Server $server)
+    public function show(Mod $mod)
     {
-        return view('admin.server.form', compact('server'));
+        return view('admin.mod.form', compact('mod'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \pfactorio\Mod  $mod
      * @return \Illuminate\Http\Response
      */
-    public function edit(Server $server)
+    public function edit(Mod $mod)
     {
-        return view('admin.server.form', compact('server'));
+        return view('admin.mod.form', compact('mod'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \pfactorio\Mod  $mod
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Server $server)
+    public function update(Request $request, Mod $mod)
     {
-        $server->update($request->all());
+        $mod->update($request->all());
 
-        $server->save();
+        $mod->save();
 
         return redirect()->back();
+
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \pfactorio\Mod  $mod
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Server $server)
+    public function destroy(Mod $mod)
     {
-        $server->delete();
-
-        return redirect()->back();
-    }
-
-    public function switchStatus(Server $server, $status=null){
-
-        if($status == null) {
-            $server->status = $server->status== 1 ? 0 : 1;
-        }else{
-            $server->status = $status;
-        }
-
-        $server->save();
-
-        return true;
+        $mod->delete();
     }
 }
