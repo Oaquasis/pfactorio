@@ -11,28 +11,6 @@
         <div id="mainnav-menu-wrap">
             <div class="nano">
                 <div class="nano-content">
-
-                    @if(Auth::user())
-                    <div id="mainnav-shortcut" class="">
-                        <ul class="list-unstyled shortcut-wrap">
-                            <li class="col-xs-3 col-xs-offset-3" data-content="My Profile" data-original-title="" title="">
-                                <a class="shortcut-grid" href="#">
-                                    <div class="icon-wrap icon-wrap-xs icon-circle bg-mint">
-                                        <i class="fal fa-user-circle" style="font-size:1.25em"></i>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="col-xs-3" data-content="Sign out" data-original-title="" title="">
-                                <a class="shortcut-grid" href="#">
-                                    <div class="icon-wrap icon-wrap-xs icon-circle bg-purple">
-                                        <i class="fal fa-sign-out" style="font-size:1.25em"></i>
-                                    </div>
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    @endif
-
                     <ul id="mainnav-menu" class="list-group">
 
                         <!--Category name-->
@@ -65,7 +43,7 @@
                                     <span class="menu-title">Logviewer</span>
                                 </a>
                             </li>
-                            <li {!! $route == 'server.index' ? 'class="active-sub active"' : ''!!}>
+                            <li {!! preg_match('/^(server|modpack|mod)(.*)/i',$route) ? 'class="active-sub active"' : ''!!}>
                                 <a href="#">
                                     <i class="fal fa-unlock-alt"></i>
                                     <span class="menu-title">Admin</span>
@@ -102,6 +80,22 @@
                                     </li>
                                 </ul>
                             </li>
+
+                            @if(Auth::check())
+                                <li {!! $route == 'profile' ? 'class="active-link"' : '' !!}>
+                                    <a href="#">
+                                        <i class="fal fa-file"></i>
+                                        <span class="menu-title">Profile</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        <i class="fal fa-sign-out"></i>
+                                        <span class="menu-title">Sign out</span>
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">{{ csrf_field() }}</form>
+                                </li>
+                            @endif
                         @endif
                     </ul>
                 </div>

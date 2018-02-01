@@ -20,48 +20,47 @@
             <div class="pad-btm form-inline">
                 <div class="row">
                     <div class="col-sm-12 table-toolbar-right">
-                        <a class="btn btn-purple" href="{{ route('server.create') }}"><i class="fal fa-add"></i> Add</a>
+                        <a class="btn btn-purple" href="{{ route('modpack.create') }}"><i class="fal fa-plus"></i> Add</a>
                     </div>
                 </div>
             </div>
+            @if(isset($modpacks) && $modpacks->count() > 0)
             <div class="table-responsive">
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>Name</th>
                         <th>Version</th>
-                        <th>IP Address</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center"></th>
+                        <th>Server</th>
+                        <th>Last modified</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
-                    @if(isset($servers))
-                        @foreach($servers as $server)
+                        @foreach($modpacks as $modpack)
                             <tr>
-                                <td>{{ $server->name }}</td>
-                                <td>{{ $server->dns_name }}</td>
-                                <td>{{ $server->ip_address }}</td>
-                                <td class="text-center">
-                                    @if($server->status == 0)
-                                        <div class="label label-table label-danger">Off</div>
-                                    @elseif($server->status == 1)
-                                        <div class="label label-table label-success">On</div>
-                                    @else
-                                        <div class="label label-table label-warning">Error</div>
-                                    @endif
+                                <td>
+                                    <a href="{{ route('modpack.edit', $modpack) }}" class="btn-link">
+                                        {{ $modpack->name }}
+                                    </a>
                                 </td>
-                                <td class="text-center">
-                                    @if($server->is_primary == 1)
-                                        <div class="label label-table label-success">Primary</div>
-                                    @endif
+                                <td>{{ $modpack->version }}</td>
+                                <td>{{ isset($modpack->server) ? $modpack->server->name : '' }}</td>
+                                <td>{{ $modpack->updated_at }}</td>
+                                <td>
+                                    <a href="{{ route('modpack.destroy', $modpack) }}" onclick="event.preventDefault(); document.getElementById('destroy-{{ $modpack->id }}-form').submit();">
+                                        <i class="fal fa-minus-circle"></i>
+                                    </a>
+                                    <form id="destroy-{{ $modpack->id }}-form" action="{{ route('modpack.destroy', $modpack) }}" method="POST" style="display: none;">{{ method_field('DELETE') }}{{ csrf_field() }}</form>
                                 </td>
                             </tr>
                         @endforeach
-                    @endif
                     </tbody>
                 </table>
             </div>
+            @else
+                No modpacks found.
+            @endif
         </div>
     </div>
 @endsection

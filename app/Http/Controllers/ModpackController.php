@@ -4,6 +4,7 @@ namespace pfactorio\Http\Controllers;
 
 use pfactorio\Modpack;
 use Illuminate\Http\Request;
+use pfactorio\Server;
 
 class ModpackController extends Controller
 {
@@ -14,9 +15,9 @@ class ModpackController extends Controller
      */
     public function index()
     {
-        $modpack = Modpack::all();
+        $modpacks= Modpack::all();
 
-        return view('admin.modpack.index', compact('modpack'));
+        return view('admin.modpack.index', compact('modpacks'));
     }
 
     /**
@@ -26,7 +27,8 @@ class ModpackController extends Controller
      */
     public function create()
     {
-        return view('admin.modpack.form');
+        $servers = Server::all();
+        return view('admin.modpack.form', compact('servers'));
     }
 
     /**
@@ -37,10 +39,18 @@ class ModpackController extends Controller
      */
     public function store(Request $request)
     {
-        $modpack = new Modpack($request->all());
-        $modpack->save();
+        $modpack = New Modpack([
+            'name' => $request->get('name'),
+            'version' => $request->get('version')
+        ]);
 
-        return redirect()->back();
+        if($request->get('server') != null){
+            Server::find($request->get('server'))->modpack()->save($modpack);
+        }else{
+            $modpack->save();
+        }
+
+        return redirect()->route('modpack.index');
     }
 
     /**
@@ -91,5 +101,7 @@ class ModpackController extends Controller
     public function destroy(Modpack $modpack)
     {
         $modpack->delete();
+
+        return redirect()->back();
     }
 }

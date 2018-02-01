@@ -19,8 +19,8 @@ class CreateServersTable extends Migration
             $table->string('dns_name');
             $table->string('ip_address');
             $table->integer('port')->default(34197);
+            $table->string('version')->nullable();
             $table->integer('status')->default(0);
-            $table->integer('modpack_id')->nullable()->unsigned();
             $table->timestamps();
         });
     }

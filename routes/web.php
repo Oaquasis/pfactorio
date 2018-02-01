@@ -47,10 +47,14 @@ Route::middleware('auth')->group(function(){
 
 Route::middleware('auth')->prefix('admin')->group(function(){
     $this->resource('server', 'ServerController');
-    Route::get('/server/{server}/primary', 'ServerController@makePrimary')->name('server.primary');
+    Route::get('server/{server}/primary', 'ServerController@makePrimary')->name('server.primary');
 
-    $this->resource('mod', 'ModController');
     $this->resource('modpack', 'ModpackController');
+
+    Route::get('mod/sync', 'ModController@syncWithFactorio')->name('mod.sync');
+    $this->resource('mod', 'ModController');
+
+    $this->resource('release', 'ReleaseController');
 
     Route::get('/oauth', function (){
         return view('admin.oauth');

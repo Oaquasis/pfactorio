@@ -2,6 +2,7 @@
 
 namespace pfactorio\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use pfactorio\Mod;
 use Illuminate\Http\Request;
 
@@ -91,5 +92,53 @@ class ModController extends Controller
     public function destroy(Mod $mod)
     {
         $mod->delete();
+
+        return redirect()->back();
+    }
+
+    public function syncWithFactorio()
+    {
+        dd($this->getFactorioApiPageSize());
+    }
+
+    public function getFactorioData($pageSize)
+    {
+        $url = config('factorio.api_url');
+        $parameters = "?page_size=".$pageSize;
+    }
+
+    public function getFactorioApiPageSize(){
+        if(Storage::disk('local')->exists('factorio_pagesize.json')){
+
+        }else{
+            $json = file_get_contents(config('factorio.api_url'));
+
+        }
+
+        $data = json_decode($json, true);
+
+        dd($data["pagination"]["count"]);
+    }
+
+    private function storeOrGetCachedData($data, $file_name)
+    {
+        if(Storage::exists($file_name)){
+
+            if(Storage::lastModified($file_name)){
+
+                Storage::put($file_name, $data);
+                return $data;
+
+            }else{
+
+                return Storage::get($file_name);
+
+            }
+
+        }
+
+        Storage::put($file_name, $data);
+        return $data;
+
     }
 }

@@ -16,6 +16,7 @@ class ServersTableSeeder extends Seeder
             'dns_name' => 'factorio.brons.pro',
             'ip_address' => '84.26.133.4',
             'port' => 34197,
+            'version' => '0.16.20',
             'status' => 0
         ]);
 
@@ -24,6 +25,7 @@ class ServersTableSeeder extends Seeder
             'dns_name' => 'factorio.brons.pro',
             'ip_address' => '84.26.133.4',
             'port' => 33445,
+            'version' => '0.16.20',
             'status' => 0
         ]);
     }

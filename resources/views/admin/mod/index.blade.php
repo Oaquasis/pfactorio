@@ -20,47 +20,36 @@
             <div class="pad-btm form-inline">
                 <div class="row">
                     <div class="col-sm-12 table-toolbar-right">
-                        <a class="btn btn-purple" href="{{ route('mod.create') }}"><i class="fal fa-add"></i> Add</a>
+                        <a class="btn btn-purple" href="{{ route('mod.create') }}"><i class="fal fa-plus"></i> Add manually</a>
+                        <a class="btn btn-dark" href="{{ route('mod.sync') }}"><i class="fal fa-sync"></i> Sync with Factorio</a>
                     </div>
                 </div>
             </div>
             <div class="table-responsive">
+                @if(isset($mods) && $mods->count() > 0)
                 <table class="table table-striped">
                     <thead>
                     <tr>
                         <th>Name</th>
-                        <th>DNS Name</th>
-                        <th>IP Address</th>
-                        <th class="text-center">Status</th>
-                        <th class="text-center"></th>
+                        <th>Owner</th>
+                        <th>Latest version</th>
+                        <th>Time released</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @if(isset($servers))
-                        @foreach($servers as $server)
+                        @foreach($mods as $mod)
                             <tr>
-                                <td>{{ $server->name }}</td>
-                                <td>{{ $server->dns_name }}</td>
-                                <td>{{ $server->ip_address }}</td>
-                                <td class="text-center">
-                                    @if($server->status == 0)
-                                        <div class="label label-table label-danger">Off</div>
-                                    @elseif($server->status == 1)
-                                        <div class="label label-table label-success">On</div>
-                                    @else
-                                        <div class="label label-table label-warning">Error</div>
-                                    @endif
-                                </td>
-                                <td class="text-center">
-                                    @if($server->is_primary == 1)
-                                        <div class="label label-table label-success">Primary</div>
-                                    @endif
-                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
                         @endforeach
-                    @endif
                     </tbody>
                 </table>
+                @else
+                    No mods found...
+                @endif
             </div>
         </div>
     </div>

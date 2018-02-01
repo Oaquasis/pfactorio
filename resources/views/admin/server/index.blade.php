@@ -29,6 +29,7 @@
                 <thead>
                 <tr>
                     <th>Name</th>
+                    <th>Version</th>
                     <th>DNS Name</th>
                     <th>IP Address</th>
                     <th>Port</th>
@@ -40,6 +41,7 @@
                     @foreach($servers as $server)
                         <tr>
                             <td><a class="btn-link" href="{{ route('server.edit', $server) }}">{{ $server->name }}</a></td>
+                            <td>{{ $server->version }}</td>
                             <td>{{ $server->dns_name }}</td>
                             <td>{{ $server->ip_address }}</td>
                             <td>{{ $server->port }}</td>

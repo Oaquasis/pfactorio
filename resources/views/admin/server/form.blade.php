@@ -7,7 +7,7 @@
         </div>
 
         <ol class="breadcrumb">
-            <li><a href="#"><i class="fal fa-home"></i></a></li>
+            <li><a href="/"><i class="fal fa-home"></i></a></li>
             <li><a href="#">Admin</a></li>
             <li><a href="{{ route('server.index') }}">Servers</a></li>
             @if(isset($server))
@@ -49,6 +49,13 @@
                 <div class="col-md-8">
                     {!! Form::text('name', old('name'), ['class' => 'form-control', 'v-validate' => "'required'", 'placeholder' => 'Displayname for the server']) !!}
                     <small v-show="errors.has('name')" class="help-block">@{{ errors.first('name') }}</small>
+                </div>
+            </div>
+            <div :class="{'form-group': true, 'has-error': errors.has('version') }">
+                {!! Form::label('version', 'Version', ['class' => 'control-label col-md-3']) !!}
+                <div class="col-md-8">
+                    {!! Form::text('version', old('version'), ['class' => 'form-control', 'v-validate' => "'required'", 'placeholder' => 'Factorio Version']) !!}
+                    <small v-show="errors.has('version')" class="help-block">@{{ errors.first('version') }}</small>
                 </div>
             </div>
             <div :class="{'form-group': true, 'has-error': errors.has('dns_name') }">

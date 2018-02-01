@@ -6,6 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Modpack extends Model
 {
+
+    protected $fillable = [
+        'name', 'version'
+    ];
+
     /**
      * The roles that belong to the user.
      */
@@ -14,8 +19,8 @@ class Modpack extends Model
         return $this->hasMany(Mod::class);
     }
 
-    public function servers()
+    public function server()
     {
-        return $this->belongsToMany(Server::class);
+        return $this->belongsTo(Server::class);
     }
 }

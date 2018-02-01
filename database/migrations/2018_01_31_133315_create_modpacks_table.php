@@ -18,12 +18,10 @@ class CreateModpacksTable extends Migration
             $table->string('name');
             $table->string('version');
             $table->timestamps();
-        });
 
-        Schema::table('servers', function (Blueprint $table) {
-            $table->foreign('modpack_id')->references('id')->on('modpacks')->onDelete('cascade');
+            $table->integer('server_id')->unsigned()->index()->nullable();
+            $table->foreign('server_id')->references('id')->on('servers')->onDelete('cascade');
         });
-
     }
 
     /**
@@ -33,8 +31,8 @@ class CreateModpacksTable extends Migration
      */
     public function down()
     {
-        Schema::table('servers', function(Blueprint $table) {
-            $table->dropForeign(['modpack_id']);
+        Schema::table('modpacks', function(Blueprint $table) {
+            $table->dropForeign(['server_id']);
         });
 
         Schema::dropIfExists('modpacks');

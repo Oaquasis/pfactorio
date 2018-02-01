@@ -9,4 +9,9 @@ class Mod extends Model
     public function modpacks(){
         return $this->belongsToMany(Modpack::class);
     }
+
+    public function releases()
+    {
+        return $this->hasMany(Release::class);
+    }
 }
