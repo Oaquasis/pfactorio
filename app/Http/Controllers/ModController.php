@@ -2,6 +2,7 @@
 
 namespace pfactorio\Http\Controllers;
 
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use pfactorio\Mod;
 use Illuminate\Http\Request;
@@ -98,47 +99,52 @@ class ModController extends Controller
 
     public function syncWithFactorio()
     {
-        dd($this->getFactorioApiPageSize());
+        $factorioMods = $this->getFactorioData($this->getFactorioApiPageSize());
+
+        dd($factorioMods[1]);
+
+        $this->syncWithDatabase($factorioMods);
+
+
+
+
+
     }
 
     public function getFactorioData($pageSize)
     {
-        $url = config('factorio.api_url');
-        $parameters = "?page_size=".$pageSize;
+        $url = config('factorio.api_url')."?page_size=".$pageSize;
+
+        return Cache::remember('factorioMods', 10, function() use ($url){
+            $data = json_decode(file_get_contents($url), true);
+            return $data["results"];
+        });
+        
+        
     }
 
     public function getFactorioApiPageSize(){
-        if(Storage::disk('local')->exists('factorio_pagesize.json')){
+        $factorioConfig = Cache::remember('factorioConfig', 360, function() {
+            return json_decode(file_get_contents(config('factorio.api_url')), true);
+        });
 
-        }else{
-            $json = file_get_contents(config('factorio.api_url'));
-
-        }
-
-        $data = json_decode($json, true);
-
-        dd($data["pagination"]["count"]);
+        return $factorioConfig["count"];
     }
 
-    private function storeOrGetCachedData($data, $file_name)
+    public function syncModsWithDatabase($modCollection)
     {
-        if(Storage::exists($file_name)){
-
-            if(Storage::lastModified($file_name)){
-
-                Storage::put($file_name, $data);
-                return $data;
-
-            }else{
-
-                return Storage::get($file_name);
-
-            }
-
+        foreach ($modCollection as $mod){
+            Mod::updateOrCreate([
+                'name' => $mod["name"]
+            ],[
+                'title' => $mod['title'],
+                'summary' => $mod['summary'],
+                'owner' => $mod['owner'],
+                'downloads_count' => $mod['downloads_count']
+            ]);
         }
 
-        Storage::put($file_name, $data);
-        return $data;
-
+        return true;
     }
+
 }

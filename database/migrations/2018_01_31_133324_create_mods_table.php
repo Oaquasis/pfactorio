@@ -16,9 +16,10 @@ class CreateModsTable extends Migration
         Schema::create('mods', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->text('title');
             $table->string('owner');
-            $table->text('description');
-            $table->integer('download_count');
+            $table->text('summary');
+            $table->integer('downloads_count');
             $table->timestamps();
         });
     }
