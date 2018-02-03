@@ -1,0 +1,36 @@
+---
+ip: "192.168.10.10"
+memory: 2048
+cpus: 1
+hostname: pfactorio
+name: pfactorio
+provider: hyperv
+
+authorize: "D:/Sources/.ssh/id_rsa.pub"
+
+keys:
+    - "D:/Sources/.ssh/id_rsa"
+
+folders:
+    - map: "D:/Sources/_Personal/pfactorio"
+      to: "/home/vagrant/pfactorio"
+
+sites:
+    - map: pfactorio.app
+      to: "/home/vagrant/pfactorio/public"
+
+databases:
+    - pfactorio
+
+# blackfire:
+#     - id: foo
+#       token: bar
+#       client-id: foo
+#       client-token: bar
+
+# ports:
+#     - send: 50000
+#       to: 5000
+#     - send: 7777
+#       to: 777
+#       protocol: udp
