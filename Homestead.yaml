@@ -1,5 +1,5 @@
 ---
-ip: "192.168.10.10"
+ip: "192.168.1.230"
 memory: 2048
 cpus: 1
 hostname: pfactorio
@@ -12,7 +12,7 @@ keys:
     - "D:/Sources/.ssh/id_rsa"
 
 folders:
-    - map: "D:/Sources/_Personal/pfactorio"
+    - map: "D:/Sources/pfactorio"
       to: "/home/vagrant/pfactorio"
 
 sites:

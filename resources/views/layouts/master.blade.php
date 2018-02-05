@@ -5,6 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>Test site</title>
     <!--Open Sans Font [ OPTIONAL ]-->
@@ -70,6 +71,9 @@
 
 
     </div>
+    <div id="app">
+        <notification></notification>
+    </div>
     <!--===================================================-->
     <!-- END OF CONTAINER -->
 
@@ -86,8 +90,8 @@
     <!--Popper [ RECOMMENDED ]-->
     <script src="/js/popper.js"></script>
 
-    <!--Pace [ RECOMMENDED ]-->
-    <script src="/js/pace.min.js"></script>
+    {{--<!--Pace [ RECOMMENDED ]-->--}}
+    {{--<script src="/js/pace.min.js"></script>--}}
 
     <!--NiftyJS [ RECOMMENDED ]-->
     <script src="/js/nifty.min.js"></script>

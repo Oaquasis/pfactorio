@@ -25,4 +25,8 @@ class Mod extends Model
     {
         return $this->hasMany(Release::class);
     }
+
+    public function latest_release(){
+        return $this->hasOne(Release::class)->orderBy('version', 'asc');
+    }
 }

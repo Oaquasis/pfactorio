@@ -2,10 +2,13 @@
 
 namespace pfactorio\Http\Controllers;
 
+use Carbon\Carbon;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use pfactorio\Mod;
 use Illuminate\Http\Request;
+use pfactorio\Release;
 
 class ModController extends Controller
 {
@@ -14,9 +17,22 @@ class ModController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $mods = Mod::all();
+
+        $mods = Mod::with(['latest_release'])->get();
+
+        return view('mod.index', compact('mods'));
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function adminIndex()
+    {
+        $mods = Mod::with(['latest_release'])->get();
 
         return view('admin.mod.index', compact('mods'));
     }
@@ -101,21 +117,35 @@ class ModController extends Controller
     {
         $factorioMods = $this->getFactorioData($this->getFactorioApiPageSize());
 
-        dd($factorioMods[1]);
+        foreach($factorioMods as $apiMod)
+        {
+            $mod = Mod::updateOrCreate([
+                'name' => $apiMod['name']
+            ],[
+                'title' => $apiMod['title'],
+                'owner' => $apiMod['owner'],
+                'summary' => $apiMod['summary'],
+                'downloads_count' => $apiMod['downloads_count']
+            ]);
 
-        $this->syncWithDatabase($factorioMods);
-
-
-
-
-
+            $release = Release::updateOrCreate([
+                'version' => $apiMod['latest_release']['version'],
+                'mod_id' => $mod->id
+            ],[
+                'download_url' => $apiMod['latest_release']['download_url'],
+                'file_name' => $apiMod['latest_release']['file_name'],
+                'factorio_version' => $apiMod['latest_release']['info_json']['factorio_version'],
+                'released_at' => Carbon::parse($apiMod['latest_release']['released_at'])->toDateTimeString()
+            ]);
+        }
+        return redirect()->back();
     }
 
     public function getFactorioData($pageSize)
     {
         $url = config('factorio.api_url')."?page_size=".$pageSize;
 
-        return Cache::remember('factorioMods', 10, function() use ($url){
+        return Cache::remember('factorioMods', 360, function() use ($url){
             $data = json_decode(file_get_contents($url), true);
             return $data["results"];
         });
@@ -125,7 +155,8 @@ class ModController extends Controller
 
     public function getFactorioApiPageSize(){
         $factorioConfig = Cache::remember('factorioConfig', 360, function() {
-            return json_decode(file_get_contents(config('factorio.api_url')), true);
+            $data = json_decode(file_get_contents(config('factorio.api_url')), true);
+            return $data["pagination"];
         });
 
         return $factorioConfig["count"];

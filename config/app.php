@@ -173,7 +173,7 @@ return [
          */
         pfactorio\Providers\AppServiceProvider::class,
         pfactorio\Providers\AuthServiceProvider::class,
-        // pfactorio\Providers\BroadcastServiceProvider::class,
+        pfactorio\Providers\BroadcastServiceProvider::class,
         pfactorio\Providers\EventServiceProvider::class,
         pfactorio\Providers\RouteServiceProvider::class,
 

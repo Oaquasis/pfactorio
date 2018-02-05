@@ -21,6 +21,19 @@ class ModpackController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function adminIndex()
+    {
+        $modpacks= Modpack::all();
+
+        return view('admin.modpack.index', compact('modpacks'));
+    }
+
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

@@ -35,15 +35,21 @@
                         @endif
 
                         @if(Auth::check())
-                            <!--Menu list item-->
-
-                            <li {!! $route == 'log' ? 'class="active-link"' : '' !!}>
-                                <a href="{{ route('log') }}">
-                                    <i class="fal fa-file-alt"></i>
-                                    <span class="menu-title">Logviewer</span>
+                            <li {!! $route == 'mod.index' ? 'class="active-link"' : '' !!}>
+                                <a href="{{ route('mod.index') }}">
+                                    <i class="fal fa-file"></i>
+                                    <span class="menu-title">Mods</span>
                                 </a>
                             </li>
-                            <li {!! preg_match('/^(server|modpack|mod)(.*)/i',$route) ? 'class="active-sub active"' : ''!!}>
+
+                            <li {!! $route == 'modpack.index' ? 'class="active-link"' : '' !!}>
+                                <a href="{{ route('modpack.index') }}">
+                                    <i class="fal fa-file-archive"></i>
+                                    <span class="menu-title">Modpacks</span>
+                                </a>
+                            </li>
+
+                            <li {!! preg_match('/^(server|admin.modpack|admin.mod)(.*)/i',$route) ? 'class="active-sub active"' : ''!!}>
                                 <a href="#">
                                     <i class="fal fa-unlock-alt"></i>
                                     <span class="menu-title">Admin</span>
@@ -57,16 +63,16 @@
                                             <span class="menu-title">Servers</span>
                                         </a>
                                     </li>
-                                    <li {!! $route == 'modpack.index' ? 'class="active-link"' : '' !!}>
-                                        <a href="{{ route('modpack.index') }}">
-                                            <i class="fal fa-file-archive"></i>
-                                            <span class="menu-title">Modpacks</span>
-                                        </a>
-                                    </li>
-                                    <li {!! $route == 'mod.index' ? 'class="active-link"' : '' !!}>
-                                        <a href="{{ route('mod.index') }}">
+                                    <li {!! $route == 'admin.mod.index' ? 'class="active-link"' : '' !!}>
+                                        <a href="{{ route('admin.mod.index') }}">
                                             <i class="fal fa-file"></i>
                                             <span class="menu-title">Mods</span>
+                                        </a>
+                                    </li>
+                                    <li {!! $route == 'admin.modpack.index' ? 'class="active-link"' : '' !!}>
+                                        <a href="{{ route('admin.modpack.index') }}">
+                                            <i class="fal fa-file-archive"></i>
+                                            <span class="menu-title">Modpacks</span>
                                         </a>
                                     </li>
                                     <li {!! $route == 'oauth' ? 'class="active-link"' : '' !!}>
@@ -82,12 +88,12 @@
                             </li>
 
                             @if(Auth::check())
-                                <li {!! $route == 'profile' ? 'class="active-link"' : '' !!}>
-                                    <a href="#">
-                                        <i class="fal fa-file"></i>
-                                        <span class="menu-title">Profile</span>
-                                    </a>
-                                </li>
+                                {{--<li {!! $route == 'profile' ? 'class="active-link"' : '' !!}>--}}
+                                    {{--<a href="#">--}}
+                                        {{--<i class="fal fa-file"></i>--}}
+                                        {{--<span class="menu-title">Profile</span>--}}
+                                    {{--</a>--}}
+                                {{--</li>--}}
                                 <li>
                                     <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                         <i class="fal fa-sign-out"></i>

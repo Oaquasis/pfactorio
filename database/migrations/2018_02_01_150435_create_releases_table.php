@@ -19,7 +19,7 @@ class CreateReleasesTable extends Migration
             $table->string('file_name');
             $table->string('factorio_version');
             $table->string('version');
-            $table->dateTime('released_at');
+            $table->timestamp('released_at');
             $table->timestamps();
 
             $table->integer('mod_id')->unsigned()->index();

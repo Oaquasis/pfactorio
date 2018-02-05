@@ -4,14 +4,11 @@
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-//
-// try {
-//     require('bootstrap');
-// } catch (e) {}
-
+require('./bootstrap');
 window.Vue = require('vue');
-const VeeValidate = require('vee-validate');
-Vue.use(VeeValidate);
+
+import VeeValidate from 'vee-validate';
+
 //const fontawesome = ;
 //const faPowerOff = require('@fortawesome/fontawesome-pro-light/faPowerOff');
 
@@ -27,7 +24,12 @@ Vue.use(VeeValidate);
 //fontawesome.library.add(faPowerOff);
 
 //Vue.component('font-awesome-icon', require('@fortawesome/fontawesome')); // Use the icon component anywhere in the app
-Vue.component('passport-clients', require('./components/passport/Clients.vue'));
-Vue.component('passport-authorized-clients',require('./components/passport/AuthorizedClients.vue'));
-Vue.component('passport-personal-access-tokens',require('./components/passport/PersonalAccessTokens.vue'));
+// Vue.component('passport-clients', require('./components/passport/Clients.vue'));
+// Vue.component('passport-authorized-clients',require('./components/passport/AuthorizedClients.vue'));
+// Vue.component('passport-personal-access-tokens',require('./components/passport/PersonalAccessTokens.vue'));
+Vue.component('notification', require('./components/FloatingNotification.vue'));
+Vue.use(VeeValidate);
 
+const app = new Vue({
+    el: "#app"
+});

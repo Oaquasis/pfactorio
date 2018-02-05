@@ -20,23 +20,22 @@
             <div class="pad-btm form-inline">
                 <div class="row">
                     <div class="col-sm-12 table-toolbar-right">
-                        <a class="btn btn-purple" href="{{ route('mod.create') }}"><i class="fal fa-plus"></i> Add manually</a>
-                        <a class="btn btn-dark" href="{{ route('admin.mod.sync') }}"><i class="fal fa-sync"></i> Sync with Factorio</a>
+                        <a class="btn btn-purple" href="{{ route('mod.create') }}"><i class="fal fa-plus"></i> Add own Mod</a>
                     </div>
                 </div>
             </div>
             <div class="table-responsive">
                 @if(isset($mods) && $mods->count() > 0)
-                <table class="table table-striped">
-                    <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Owner</th>
-                        <th>Latest version</th>
-                        <th>Time released</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Owner</th>
+                            <th>Latest version</th>
+                            <th>Time released</th>
+                        </tr>
+                        </thead>
+                        <tbody>
                         @foreach($mods as $mod)
                             <tr>
                                 <td>{{ $mod->name }}</td>
@@ -45,8 +44,8 @@
                                 <td>{{ $mod->latest_release->released_at }}</td>
                             </tr>
                         @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
                 @else
                     No mods found...
                 @endif

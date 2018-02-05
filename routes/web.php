@@ -43,18 +43,23 @@ Route::middleware('auth')->group(function(){
     Route::get('/profile', function (){
         return view('pages.profile');
     })->name('profile');
+
+    $this->resource('mod', 'ModController');
+    Route::get('/modpack/message', function(){
+        \pfactorio\Events\ModpackUpdated::dispatch("Test");
+    });
+    $this->resource('modpack', 'ModpackController');
+    $this->resource('release', 'ReleaseController');
 });
 
 Route::middleware('auth')->prefix('admin')->group(function(){
     $this->resource('server', 'ServerController');
     Route::get('server/{server}/primary', 'ServerController@makePrimary')->name('server.primary');
 
-    $this->resource('modpack', 'ModpackController');
+    Route::get('mod', 'ModController@adminIndex')->name('admin.mod.index');
+    Route::get('mod/sync', 'ModController@syncWithFactorio')->name('admin.mod.sync');
 
-    Route::get('mod/sync', 'ModController@syncWithFactorio')->name('mod.sync');
-    $this->resource('mod', 'ModController');
-
-    $this->resource('release', 'ReleaseController');
+    Route::get('modpack', 'ModpackController@adminIndex')->name('admin.modpack.index');
 
     Route::get('/oauth', function (){
         return view('admin.oauth');
