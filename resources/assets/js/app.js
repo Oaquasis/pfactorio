@@ -28,8 +28,9 @@ import VeeValidate from 'vee-validate';
 // Vue.component('passport-authorized-clients',require('./components/passport/AuthorizedClients.vue'));
 // Vue.component('passport-personal-access-tokens',require('./components/passport/PersonalAccessTokens.vue'));
 Vue.component('notification', require('./components/FloatingNotification.vue'));
+Vue.component('modpacks');
 Vue.use(VeeValidate);
 
 const app = new Vue({
-    el: "#app"
+    el: "#container"
 });

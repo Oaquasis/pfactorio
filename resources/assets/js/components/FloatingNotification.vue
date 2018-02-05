@@ -1,23 +1,26 @@
 <template>
-    <div class="div">Test: {{ message }}</div>
+    <div class="div"></div>
 </template>
 
 <script>
     export default {
-        data() {
-            return {
-                message : "",
-            };
-        },
-
         created() {
-            console.log("started listening");
-            window.Echo.channel('modpacks').listen('IetsAnders', e => {
-                console.log('Got it');
-                this.message = e.message;
+            window.Echo.channel('modpacks').listen('.ModpackUpdated', (e) => {
+                window.$.niftyNoty({
+                    type: "danger",
+                    container: "floating",
+                    title: "Test Message",
+                    message: e.message,
+                    closeBtn: false,
+                    floating: {
+                        position: "top-right",
+                        animationIn: "bounceInDown",
+                        animationOut: "fadeOud"
+                    },
+                    focus: true,
+                    timer: 2500
+                });
             });
         }
-
-
     }
 </script>

@@ -36,6 +36,6 @@ class ModpackUpdated implements  ShouldBroadcast
 
     public function broadcastAs()
     {
-        return "IetsAnders";
+        return "ModpackUpdated";
     }
 }

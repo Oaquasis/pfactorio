@@ -6,13 +6,13 @@ hostname: pfactorio
 name: pfactorio
 provider: hyperv
 
-authorize: "D:/Sources/.ssh/id_rsa.pub"
+authorize: "D:/Sources/_Personal/.ssh/id_rsa.pub"
 
 keys:
-    - "D:/Sources/.ssh/id_rsa"
+    - "D:/Sources/_Personal/.ssh/id_rsa"
 
 folders:
-    - map: "D:/Sources/pfactorio"
+    - map: "D:/Sources/_Personal/pfactorio"
       to: "/home/vagrant/pfactorio"
 
 sites:

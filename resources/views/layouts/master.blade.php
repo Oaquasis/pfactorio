@@ -70,8 +70,6 @@
 
 
 
-    </div>
-    <div id="app">
         <notification></notification>
     </div>
     <!--===================================================-->
@@ -81,8 +79,8 @@
     <!--JAVASCRIPT-->
     <!--=================================================-->
 
-    <!--jQuery [ REQUIRED ]-->
-    <script src="/js/jquery.min.js"></script>
+    <!--Application JS [ RECOMMENDED ]-->
+    <script src="/js/app.js"></script>
 
     <!--BootstrapJS [ RECOMMENDED ]-->
     <script src="/js/bootstrap.min.js"></script>
@@ -95,10 +93,6 @@
 
     <!--NiftyJS [ RECOMMENDED ]-->
     <script src="/js/nifty.min.js"></script>
-
-    <!--Application JS [ RECOMMENDED ]-->
-    <script src="/js/app.js"></script>
-
     @yield('footer')
     </body>
 </html>
