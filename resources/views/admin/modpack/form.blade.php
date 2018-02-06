@@ -20,7 +20,7 @@
 @endsection
 
 @section('content')
-    <div class="row">
+    <div id="modpackForm" class="row">
         <div class="col-lg-12">
             <div class="panel">
                 <div class="panel-heading">
@@ -30,7 +30,8 @@
                         <h3 class="panel-title">Add a new Modpack</h3>
                     @endif
                 </div>
-                <modpacks inline-template>
+
+                <modpack inline-template>
                     @if(isset($modpack))
                         {!! Form::model($modpack, ['route' => ['modpack.update', $modpack], 'method' => 'patch', 'class' => 'form-horizontal form-padding']) !!}
                     @else
@@ -67,8 +68,9 @@
                         {!! Form::submit('Submit', ['class' => 'btn btn-success']); !!}
                     </div>
                     {!! Form::close() !!}
-                </modpacks>
+                </modpack>
             </div>
         </div>
     </div>
 @endsection
+

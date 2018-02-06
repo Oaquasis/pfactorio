@@ -37,6 +37,13 @@ class ServerController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'version' => 'required',
+            'dns_name' => 'required',
+            'ip_address' => 'required|ipv4'
+        ]);
+
         $server = new Server($request->all());
 
         $server->save();
@@ -75,6 +82,13 @@ class ServerController extends Controller
      */
     public function update(Request $request, Server $server)
     {
+        $request->validate([
+            'name' => 'required',
+            'version' => 'required',
+            'dns_name' => 'required',
+            'ip_address' => 'required|ipv4'
+        ]);
+
         $server->update($request->all());
 
         $server->save();

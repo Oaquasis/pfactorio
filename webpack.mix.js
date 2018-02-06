@@ -12,11 +12,15 @@ let mix = require('laravel-mix');
  */
 
 //mix.js('resources/assets/js/unify.js', 'public/js')
+
+// Copy files
 mix.copy('node_modules/pace-progress/pace.min.js', 'public/js/pace.min.js')
-    .copy('resources/assets/sass/fontawesome/webfonts/', 'public/fonts/vendor/fontawesome')
-    .js('resources/assets/js/jquery.js', 'public/js')
-    .js('resources/assets/js/popper.js', 'public/js')
-    .js('resources/assets/js/app.js', 'public/js')
-    .less('resources/assets/less/bootstrap.less', 'public/css')
+    .copy('resources/assets/sass/fontawesome/webfonts/', 'public/fonts/vendor/fontawesome');
+
+// Javascript
+mix.js('resources/assets/js/app.js', 'public/js');
+
+// Styling
+mix.less('resources/assets/less/bootstrap.less', 'public/css')
     .sass('resources/assets/sass/app.scss', 'public/css')
     .sass('resources/assets/sass/fontawesome/fontawesome.scss', 'public/css');

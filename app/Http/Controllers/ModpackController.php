@@ -52,6 +52,10 @@ class ModpackController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required'
+        ]);
+
         $modpack = New Modpack([
             'name' => $request->get('name'),
             'version' => $request->get('version')

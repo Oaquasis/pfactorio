@@ -79,14 +79,16 @@
     <!--JAVASCRIPT-->
     <!--=================================================-->
 
-    <!--Application JS [ RECOMMENDED ]-->
+    {{--<!--Application JS [ RECOMMENDED ]-->--}}
+    {{--<script src="{{ asset('js/jquery.min.js') }}"></script>--}}
+
     <script src="/js/app.js"></script>
 
-    <!--BootstrapJS [ RECOMMENDED ]-->
-    <script src="/js/bootstrap.min.js"></script>
+    {{--<!--BootstrapJS [ RECOMMENDED ]-->--}}
+    {{--<script src="/js/bootstrap.min.js"></script>--}}
 
-    <!--Popper [ RECOMMENDED ]-->
-    <script src="/js/popper.js"></script>
+    {{--<!--Popper [ RECOMMENDED ]-->--}}
+    {{--<script src="/js/popper.js"></script>--}}
 
     {{--<!--Pace [ RECOMMENDED ]-->--}}
     {{--<script src="/js/pace.min.js"></script>--}}
