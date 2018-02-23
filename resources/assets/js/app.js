@@ -20,9 +20,7 @@ require('./bootstrap');
 // Vue.component('passport-personal-access-tokens',require('./components/passport/PersonalAccessTokens.vue'));
 
 Vue.component('notification', require('./components/FloatingNotification.vue'));
-Vue.component('modpack', require('./components/Modpack.vue'));
-//Vue.component('modpacks');
 
-const app = new Vue({
-    el: "#container"
+var PFNotify = new Vue({
+    el: "#pfnotify"
 });

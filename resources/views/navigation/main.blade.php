@@ -84,6 +84,12 @@
                                             <span class="menu-title">Oauth Tokens</span>
                                         </a>
                                     </li>
+                                    <li {!! $route == 'schedule' ? 'class="active-link"' : '' !!}>
+                                        <a href="{{ route('schedule') }}">
+                                            <i class="fal fa-calendar-alt"></i>
+                                            <span class="menu-title">Schedule</span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
 

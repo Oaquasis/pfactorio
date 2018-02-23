@@ -30,47 +30,72 @@
                         <h3 class="panel-title">Add a new Modpack</h3>
                     @endif
                 </div>
-
-                <modpack inline-template>
-                    @if(isset($modpack))
-                        {!! Form::model($modpack, ['route' => ['modpack.update', $modpack], 'method' => 'patch', 'class' => 'form-horizontal form-padding']) !!}
-                    @else
-                        {!! Form::open(['route' => 'modpack.store', 'class' => 'form-horizontal form-padding']) !!}
-                    @endif
-                    <div class="panel-body">
-                        <div :class="{'form-group': true, 'has-error': errors.has('name') }">
-                            {!! Form::label('name', 'Displayname', ['class' => 'control-label col-md-3']) !!}
-                            <div class="col-md-8">
-                                {!! Form::text('name', old('name'), ['class' => 'form-control', 'v-validate' => "'required'", 'placeholder' => 'Displayname for the modpack']) !!}
-                                <small v-show="errors.has('name')" class="help-block">@{{ errors.first('name') }}</small>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            {!! Form::label('version', 'Version', ['class' => 'control-label col-md-3']) !!}
-                            <div class="col-md-8">
-                                {!! Form::text('version', old('version') > 0 ? old('version') : 1, ['class' => 'form-control', 'disabled']) !!}
-                                {!! Form::hidden('version', old('version') > 0 ? old('version') : 1) !!}
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-3 control-label">Server</label>
-                            <div class="col-md-8">
-                                <select id="server" name="server" class="form-control" placeholder="Choose a server...">
-                                    <option value="" default>None</option>
-                                    @foreach($servers as $server)
-                                        <option value="{{ $server->id }}">{{ $server->name }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
+                <form accept-charset="UTF-8" class="form-horizontal form-padding" @submit.prevent="onSubmit" @keydown="form.errors.clear($event.target.name)">
+                @if(isset($modpack))
+                    {{ method_field("PATCH") }}
+                @endif
+                <div class="panel-body">
+                    <div :class="{'form-group': true, 'has-error': form.errors.has('name') }">
+                        <label for="name" class="control-label col-md-3">Display name</label>
+                        <div class="col-md-8">
+                            <input name="name" type="text" value="{{ old('name') }}" class="form-control" placeholder="Display name for the Modpack">
+                            <small v-show="form.errors.has('name')" class="help-block">@{{ form.errors.get('name') }}</small>
                         </div>
                     </div>
-                    <div class="panel-footer text-right">
-                        {!! Form::submit('Submit', ['class' => 'btn btn-success']); !!}
+                    <div class="form-group">
+                        <label for="version" class="control-label col-md-3">Version</label>
+                        <div class="col-md-8">
+                            <input type="text" name="version" value="{{ old('version') > 0 ? old('version') : 1 }}" class="form-control" disabled="disabled">
+                            <input type="hidden" value="{{ old('version') > 0 ? old('version') : 1 }}">
+                        </div>
                     </div>
-                    {!! Form::close() !!}
-                </modpack>
+                    <div class="form-group">
+                        <label class="col-md-3 control-label">Server</label>
+                        <div class="col-md-8">
+                            @if(isset($modpack->server))
+                                $modpack->server
+                            @else
+                                Geen server gekoppeld.
+                            @endif
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <button class="btn btn-succes" :disabled="form.errors.any()">Submit</button>
+                </div>
+                {{ csrf_field() }}
+                </form>
             </div>
         </div>
     </div>
 @endsection
+
+@section('footer')
+    <script>
+        var modPack = new Vue({
+            el: '#modpackForm',
+
+            data: {
+                form: new Form({
+                    name: ''
+                })
+            },
+
+            methods: {
+                onSubmit() {
+                    @if(isset($modpack))
+                        this.form.post('{{ route('modpack.update', ['id' => $modpack->id]) }}')
+                            .then(data => console.log(data))
+                            .catch(errors => console.log(errors));
+                    @else
+                        this.form.post('{{ route('modpack.store') }}')
+                            .then(data => console.log(data))
+                            .catch(errors => console.log(errors));
+                    @endif
+                }
+            }
+        });
+    </script>
+@endsection
+
 

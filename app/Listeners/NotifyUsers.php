@@ -1,16 +1,11 @@
 <?php
 
-namespace pfactorio\Events;
+namespace pfactorio\Listeners;
 
-use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class ModpackUpdated implements  ShouldBroadcast
+class NotifyUsers implements  ShouldBroadcast
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $title, $type, $message;
 
@@ -38,6 +33,6 @@ class ModpackUpdated implements  ShouldBroadcast
 
     public function broadcastAs()
     {
-        return "notify";
+        return "ModsSynced";
     }
 }

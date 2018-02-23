@@ -69,8 +69,9 @@
       <!--===================================================-->
 
 
-
-        <notification></notification>
+        <div id="pfnotify">
+            <notification></notification>
+        </div>
     </div>
     <!--===================================================-->
     <!-- END OF CONTAINER -->

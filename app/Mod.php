@@ -17,6 +17,7 @@ class Mod extends Model
     ];
 
 
+
     public function modpacks(){
         return $this->belongsToMany(Modpack::class);
     }

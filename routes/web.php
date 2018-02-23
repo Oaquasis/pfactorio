@@ -57,13 +57,20 @@ Route::middleware('auth')->prefix('admin')->group(function(){
     Route::get('server/{server}/primary', 'ServerController@makePrimary')->name('server.primary');
 
     Route::get('mod', 'ModController@adminIndex')->name('admin.mod.index');
-    Route::get('mod/sync', 'ModController@syncWithFactorio')->name('admin.mod.sync');
+    Route::get('mod/sync', function(){
+        \pfactorio\Events\ModsSynced::dispatch("Synchronisation started...", "info");
+    });
+    //Route::post('mod/sync', 'ModController@syncWithFactorio')->name('admin.mod.sync');
 
     Route::get('modpack', 'ModpackController@adminIndex')->name('admin.modpack.index');
 
     Route::get('/oauth', function (){
         return view('admin.oauth');
     })->name('oauth');
+
+    Route::get('/schedule', function(){
+        return view('admin.schedule');
+    })->name('schedule');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

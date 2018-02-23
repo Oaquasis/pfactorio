@@ -8,8 +8,9 @@ import Form from './utilities/Form';
 
 
 window.$ = window.jQuery = jQuery;
+require('bootstrap');
 window.Vue = Vue;
-window.Form = Form;
+window.Form  = Form;
 
 window.axios = axios;
 window.axios.defaults.headers.common ={

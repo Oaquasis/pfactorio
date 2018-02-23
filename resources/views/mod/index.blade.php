@@ -40,8 +40,8 @@
                             <tr>
                                 <td>{{ $mod->name }}</td>
                                 <td>{{ $mod->owner }}</td>
-                                <td>{{ $mod->latest_release->version }}</td>
-                                <td>{{ $mod->latest_release->released_at }}</td>
+                                <td>{{ isset($mod->latest_release) ? $mod->latest_release->version : "No release found..."}}</td>
+                                <td>{{ isset($mod->latest_release) ? $mod->latest_release->released_at : "..." }}</td>
                             </tr>
                         @endforeach
                         </tbody>

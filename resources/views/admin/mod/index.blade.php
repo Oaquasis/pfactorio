@@ -17,11 +17,15 @@
 @section('content')
     <div class="panel">
         <div class="panel-body">
-            <div class="pad-btm form-inline">
+            <div class="pad-btm form-inline" id="PanelActions">
                 <div class="row">
                     <div class="col-sm-12 table-toolbar-right">
                         <a class="btn btn-purple" href="{{ route('mod.create') }}"><i class="fal fa-plus"></i> Add manually</a>
-                        <a class="btn btn-dark" href="{{ route('admin.mod.sync') }}"><i class="fal fa-sync"></i> Sync with Factorio</a>
+                        <a class="btn btn-dark" href="{{ route('admin.mod.index') }}" onclick="event.preventDefault(); document.getElementById('Modsync-form').submit();">
+                            <i class="fal fa-sync"></i>
+                            Sync with Factorio
+                        </a>
+                        <form id="Modsync-form" @submit.prevent="onSubmit" method="POST" style="display: none;">{{ csrf_field() }}</form>
                     </div>
                 </div>
             </div>
@@ -41,8 +45,8 @@
                             <tr>
                                 <td>{{ $mod->name }}</td>
                                 <td>{{ $mod->owner }}</td>
-                                <td>{{ $mod->latest_release->version }}</td>
-                                <td>{{ $mod->latest_release->released_at }}</td>
+                                <td>{{ isset($mod->latest_release) ? $mod->latest_release->version : "No release found..."}}</td>
+                                <td>{{ isset($mod->latest_release) ? $mod->latest_release->released_at : "..." }}</td>
                             </tr>
                         @endforeach
                     </tbody>
@@ -53,4 +57,26 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('footer')
+    <script>
+        var Actions = new Vue({
+            el: '#PanelActions',
+
+            data: {
+                form: new Form({
+                    name: ''
+                })
+            },
+
+            methods: {
+                onSubmit() {
+                    this.form.post('{{ route('admin.mod.index') }}')
+                        .then(response => console.log(response))
+                        .catch(errors => console.log(errors));
+                }
+            }
+        });
+    </script>
 @endsection

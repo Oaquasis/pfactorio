@@ -13,8 +13,11 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'pfactorio\Events\Event' => [
-            'pfactorio\Listeners\EventListener',
+        'pfactorio\Events\ModSyncStarted' => [
+            'pfactorio\Listeners\NotifyUsers'
+        ],
+        'pfactorio\Events\ModSyncFinished' => [
+            'pfactorio\Listeners\NotifyUsers'
         ],
     ];
 

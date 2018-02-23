@@ -4,6 +4,7 @@ namespace pfactorio\Http\Controllers;
 
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Storage;
 use pfactorio\Mod;
@@ -19,7 +20,6 @@ class ModController extends Controller
      */
     public function index(Request $request)
     {
-
         $mods = Mod::with(['latest_release'])->get();
 
         return view('mod.index', compact('mods'));
@@ -113,69 +113,8 @@ class ModController extends Controller
         return redirect()->back();
     }
 
-    public function syncWithFactorio()
-    {
-        $factorioMods = $this->getFactorioData($this->getFactorioApiPageSize());
-
-        foreach($factorioMods as $apiMod)
-        {
-            $mod = Mod::updateOrCreate([
-                'name' => $apiMod['name']
-            ],[
-                'title' => $apiMod['title'],
-                'owner' => $apiMod['owner'],
-                'summary' => $apiMod['summary'],
-                'downloads_count' => $apiMod['downloads_count']
-            ]);
-
-            $release = Release::updateOrCreate([
-                'version' => $apiMod['latest_release']['version'],
-                'mod_id' => $mod->id
-            ],[
-                'download_url' => $apiMod['latest_release']['download_url'],
-                'file_name' => $apiMod['latest_release']['file_name'],
-                'factorio_version' => $apiMod['latest_release']['info_json']['factorio_version'],
-                'released_at' => Carbon::parse($apiMod['latest_release']['released_at'])->toDateTimeString()
-            ]);
-        }
-        return redirect()->back();
-    }
-
-    public function getFactorioData($pageSize)
-    {
-        $url = config('factorio.api_url')."?page_size=".$pageSize;
-
-        return Cache::remember('factorioMods', 360, function() use ($url){
-            $data = json_decode(file_get_contents($url), true);
-            return $data["results"];
-        });
-        
-        
-    }
-
-    public function getFactorioApiPageSize(){
-        $factorioConfig = Cache::remember('factorioConfig', 360, function() {
-            $data = json_decode(file_get_contents(config('factorio.api_url')), true);
-            return $data["pagination"];
-        });
-
-        return $factorioConfig["count"];
-    }
-
-    public function syncModsWithDatabase($modCollection)
-    {
-        foreach ($modCollection as $mod){
-            Mod::updateOrCreate([
-                'name' => $mod["name"]
-            ],[
-                'title' => $mod['title'],
-                'summary' => $mod['summary'],
-                'owner' => $mod['owner'],
-                'downloads_count' => $mod['downloads_count']
-            ]);
-        }
-
-        return true;
+    public function syncWithFactorio(){
+        Artisan::call('mods:sync');
     }
 
 }
