@@ -14,8 +14,8 @@ class CreateModModpackTable extends Migration
     public function up()
     {
         Schema::create('mod_modpack', function (Blueprint $table) {
-            $table->integer('mod_id')->unsigned();
-            $table->integer('modpack_id')->unsigned();
+            $table->unsignedInteger('mod_id');
+            $table->unsignedInteger('modpack_id');
             $table->timestamps();
         });
 

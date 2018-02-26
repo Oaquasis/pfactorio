@@ -19,7 +19,7 @@ class CreateModpacksTable extends Migration
             $table->string('version');
             $table->timestamps();
 
-            $table->integer('server_id')->unsigned()->index()->nullable();
+            $table->unsignedInteger('server_id')->index()->nullable();
             $table->foreign('server_id')->references('id')->on('servers')->onDelete('cascade');
         });
     }

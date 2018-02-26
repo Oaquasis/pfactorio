@@ -22,7 +22,7 @@ class CreateReleasesTable extends Migration
             $table->timestamp('released_at');
             $table->timestamps();
 
-            $table->integer('mod_id')->unsigned()->index();
+            $table->unsignedInteger('mod_id')->index();
             $table->foreign('mod_id')->references('id')->on('mods')->onDelete('cascade');
         });
     }
